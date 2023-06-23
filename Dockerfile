@@ -1,13 +1,13 @@
 # Builder image to compile dependencies, outputs are opied to new image
 # and artifacts are discarded.
-FROM registry.access.redhat.com/ubi8/ubi-minimal as builder
+FROM registry.access.redhat.com/ubi9/ubi-minimal as builder
 
 USER root
 
 # define final image, copy imagemagick components from staged build.
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 
-LABEL name="ubi8-php8-apache" \
+LABEL name="ubi9-php8-apache" \
       maintainer="support@tag1consulting.com" \
       vendor="Tag1 Consulting" \
       version="1.0" \
@@ -29,15 +29,12 @@ USER root
 # Reinstall timezone data (required by php runtime)
 # (ubi-minimal has tzdata, but removed /usr/share/zoneinfo to save space.)
 RUN microdnf upgrade && \
-    microdnf reinstall tzdata
+    microdnf reinstall -y tzdata
 
 # Install php 8.1 and httpd 2.4
-RUN rpm -i https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    rpm -i https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
-    microdnf module reset php && \
-    microdnf module enable php:remi-8.1 \
-    httpd:2.4 && \
-    microdnf install php \
+RUN microdnf module reset php && \
+    microdnf module enable -y php:8.1 && \
+    microdnf install -y php \
     httpd
 
 RUN chown -R apache:0 /run/httpd /etc/httpd/run /var/log/httpd
