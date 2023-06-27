@@ -18,8 +18,8 @@ jobs:
        id: check
        uses: twiddler/is-my-docker-parent-image-out-of-date@v1
        with:
-         parent-image: registry.access.redhat.com/ubi8/ubi-minimal:latest
-         my-image: quay.io/tag1consulting/ubi8-php8-apache:latest
+         parent-image: registry.access.redhat.com/ubi9/ubi-minimal:latest
+         my-image: quay.io/tag1consulting/ubi9-php8-apache:latest
      -
        name: Setup Docker Buildx
        uses: docker/setup-buildx-action@v1
@@ -39,7 +39,7 @@ jobs:
        id: meta
        uses: docker/metadata-action@v3
        with:
-         images: quay.io/tag1consulting/ubi8-php8-apache
+         images: quay.io/tag1consulting/ubi9-php8-apache
      - name: Get current date
        id: date
        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"

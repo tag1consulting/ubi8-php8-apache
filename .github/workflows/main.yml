@@ -32,7 +32,7 @@ jobs:
        id: meta
        uses: docker/metadata-action@v3
        with:
-         images: quay.io/tag1consulting/ubi8-php8-apache
+         images: quay.io/tag1consulting/ubi9-php8-apache
 
      -
        name: Build and push
