@@ -35,7 +35,21 @@ RUN microdnf upgrade && \
 RUN microdnf module reset php && \
     microdnf module enable -y php:8.1 && \
     microdnf install -y php \
-    httpd
+    php-gd \
+    php-pear \
+    php-cli \
+    php-common \
+    php-mysqlnd \
+    php-opcache \
+    php-devel \
+    php-pecl-zip \
+    php-intl \
+    php-ldap \
+    php-bcmath \
+    php-pecl-apcu \
+    php-pgsql \
+    php-soap \
+    php-gmp
 
 RUN chown -R apache:0 /run/httpd /etc/httpd/run /var/log/httpd
 
